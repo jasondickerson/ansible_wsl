@@ -1,6 +1,6 @@
 #!/bin/bash
 
-## Tested with Windows 10 WSL2 with following OS's:
+## Tested with Windows 10 and 11 WSL2 with following OS's:
 ## (Default WSL2) Ubuntu 22.04.4 LTS
 ## Fedora WSL by Vineel Sai, available for Free on the Microsoft Store
 
@@ -9,7 +9,7 @@
 FULL_NAME="Jason Dickerson"
 EMAIL=jason.dickerson@gmail.com
 export GIT_USER=jasondickerson
-export GIT_PASSWORD=
+export GIT_TOKEN=
 export GIT_HOST=github.com
 
 ## Get OS ID Variable
@@ -134,12 +134,12 @@ envsubst << '__EOF__' | git credential approve
 protocol=https
 host=${GIT_HOST}
 username=${GIT_USER}
-password=${GIT_PASSWORD}
+password=${GIT_TOKEN}
 
 __EOF__
 
 unset GIT_USER
-unset GIT_PASSWORD
+unset GIT_TOKEN
 
 if [ ! -f ~/.ansible-navigator.yml ] ; then
   cat > ~/.ansible-navigator.yml << '__EOF__'

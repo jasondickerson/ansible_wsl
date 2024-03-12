@@ -76,8 +76,10 @@ ansible_wsl.bash uses several variables to configure your Ansible Development En
 - FULL_NAME    - Your full name used for git commits
 - EMAIL        - Your email address used for git commits
 - GIT_USER     - Your git user name
-- GIT_PASSWORD - Your git password or access token for access to git via https
+- GIT_TOKEN    - Your git personal access token for https access
 - GIT_HOST     - Your git host Fully Qualified Domain Name
+
+NOTE: If your git repository supports Password Auth, you can use your git password for the GIT_TOKEN variable.
 
 #### Run the script
 
@@ -103,9 +105,9 @@ Once completed, if you are on Ubuntu, everything should be working.  For Fedora,
 1. In VS Code, install the WSL Extension.  
 1. Close VS Code.
 1. Open the WSL Application, either Fedora or Ubuntu.
-1. In the WSL terminal switch to a project directory, for example plantpax-orchestration-developer-wsl-configuration
+1. In the WSL terminal switch to a project directory, for example ansible-wsl
 
-        # cd git-repos/plantpax-orchestration-developer-wsl-configuration
+        # cd git-repos/ansible-wsl
 
 1. To open the current directory in VS Code run
 
