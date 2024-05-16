@@ -2,7 +2,7 @@
 
 ## Tested with Windows 10 and 11 WSL2 with following OS's:
 ## (Default WSL2) Ubuntu 22.04.4 LTS
-## Fedora WSL by Vineel Sai, available for Free on the Microsoft Store
+## Fedora WSL by Vineel Sai, available for Free on the Microsoft Store.  Versions 39 and 40.
 
 ## Variables
 ## Git configuration
@@ -71,7 +71,9 @@ esac
 ${PKG_MGR} install podman python3-pip tree
 
 ## Install Community Ansible Navigator
-python3 -m pip install ansible-navigator --user
+## 202040516 version 24.3.2 has a bug referencing python 3.9 instead of 3.12
+## ImportError: cannot import name 'TypeAlias' from 'typing' (/usr/lib64/python3.9/typing.py)
+python3 -m pip install ansible-navigator==24.2.0 --user
 
 ## Add Ansible commands to the PATH
 ## Set Profile Variable
@@ -91,6 +93,12 @@ grep 'export PATH=$HOME/.local/bin:$PATH' ~/${USER_PROFILE} &> /dev/null
 if [ ${?} -ne 0 ] ; then
   echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/${USER_PROFILE}
 fi
+
+grep 'export PODMAN_IGNORE_CGROUPSV1_WARNING=1' ~/${USER_PROFILE} &> /dev/null
+if [ ${?} -ne 0 ] ; then
+  echo 'export PODMAN_IGNORE_CGROUPSV1_WARNING=1' >> ~/${USER_PROFILE}
+fi
+
 source ~/${USER_PROFILE}
 
 ## Make / mount change to fix podman persistent
@@ -195,10 +203,7 @@ case ${ID} in
     echo "  - from a cmd.exe or powershell.exe prompt, run wsl --shutdown"
     echo "  - launch the Fedora application"
     echo ""
-    echo "Fedora WSL is now booted via systemd"
-    echo ""
-    echo "NOTE: It seems you must disable systemd boot for Fedora in place upgrades."
-    echo "      See /etc/wsl.conf"
+    echo "Fedora WSL will then be booted via systemd"
     echo ""
     ;;
 

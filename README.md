@@ -58,6 +58,7 @@ ansible_wsl.bash is designed to detect whether it is running on Fedora or Ubuntu
 - Install required OS packages
 - Install Community Ansible via Python3 pip module into user home directory
 - Add Ansible executables to the PATH environment variable
+- Suppress podman messages concerning the upcoming cgroups v1 deprecation.
 - Configure WSL for systemd boot
 - Create required Ansible directories and git repository directory.
 - Configure Git
@@ -119,6 +120,7 @@ Once completed, if you are on Ubuntu, everything should be working.  For Fedora,
 
     - Ansible
     - markdownlint
+    - Code Spell Checker
 
 1. Go to the Extension Settings for the Ansible Extension
 1. Ensure Ansible Execution Environment Enabled is checked
@@ -126,6 +128,53 @@ Once completed, if you are on Ubuntu, everything should be working.  For Fedora,
 1. Ensure Ansible Execution Environment Image is set to your desired EE image
 1. Ensure Ansible Execution Environment Pull Policy is missing
 
-Your VS Code WSL environment should now be configured.  
+Your VS Code WSL development environment should now be configured.  
 
 NOTE:  It is possible to use WSL with VS Codium as well.  The WSL extension is replaced by the "Open Remote - WSL" Extension, and VS Codium does not seem to be in the path by default, so I use the blue '><' button at the bottom left to connect to the WSL instance.  
+
+## How to backup your WSL environment
+
+This example workflow is for Fedora, but will work for any WSL distribution:
+
+1. Open a Windows Command Prompt, cmd.exe
+1. Run the following commands:
+
+        # wsl --shutdown
+        # wsl --export Fedora fedora_<version>_<date>.tar
+
+## How to upgrade a Fedora Distribution to the latest major version
+
+Fedora 40 just recently was released.  The following will upgrade a Fedora 39 WSL Distro to 40:
+
+1. From Fedora WSL user, run:
+
+        # sudo dnf -y upgrade --refresh
+        # exit
+
+1. From the Windows Command prompt, run:
+
+        # wsl --shutdown
+
+1. From Fedora WSL, run the following commands using sudo access as follows:
+
+        # sudo -i
+        # export DNF_SYSTEM_UPGRADE_NO_REBOOT=1
+        # dnf -y system-upgrade download --releasever=40
+        # dnf -y system-upgrade reboot
+        # dnf -y system-upgrade upgrade
+        # exit
+
+1. From the Windows Command prompt, run:
+
+        # wsl --shutdown
+
+1. If you have a version of ansible-navigator older than 24.2.0, run the following as your Fedora WSL user:
+
+        # ansible-navigator --version
+        # python3 -m pip install ansible-navigator==24.2.0 --user
+
+Your developer environment should now be upgraded and ready to go.
+
+## Additional Note
+
+There is a bug with the latest community ansible-navigator version 24.3.2.  The packages is attempting to reference a Python 3.9 library instead of a Python 3.12 library.  The script is currently configured to only install the latest working version ansible-navigator 24.2.0.
