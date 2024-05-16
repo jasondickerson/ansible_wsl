@@ -177,4 +177,4 @@ Your developer environment should now be upgraded and ready to go.
 
 ## Additional Note
 
-There is a bug with the latest community ansible-navigator version 24.3.2.  The packages is attempting to reference a Python 3.9 library instead of a Python 3.12 library.  The script is currently configured to only install the latest working version ansible-navigator 24.2.0.
+There is a bug with the latest community ansible-navigator version 24.3.2.  The package is attempting to reference a Python 3.9 library instead of a Python 3.12 library.  The script is currently configured to only install the latest working version ansible-navigator 24.2.0.
