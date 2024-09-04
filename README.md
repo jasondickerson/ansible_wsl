@@ -168,10 +168,10 @@ Fedora 40 just recently was released.  The following will upgrade a Fedora 39 WS
 
         # wsl --shutdown
 
-1. If you have a version of ansible-navigator older than 24.2.0, run the following as your Fedora WSL user:
+1. If you have a version of ansible-navigator older than 24.2.0 or ansible-builder older than 3.0.1, run the following as your Fedora WSL user:
 
         # ansible-navigator --version
-        # python3 -m pip install ansible-navigator==24.2.0 --user
+        # python3 -m pip install ansible-navigator==24.2.0 ansible-builder==3.0.1 --user
 
 Your developer environment should now be upgraded and ready to go.
 
