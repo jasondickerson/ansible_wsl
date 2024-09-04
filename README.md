@@ -175,6 +175,8 @@ Fedora 40 just recently was released.  The following will upgrade a Fedora 39 WS
 
 Your developer environment should now be upgraded and ready to go.
 
-## Additional Note
+## Additional Notes
 
 There is a bug with the latest community ansible-navigator version 24.3.2.  The package is attempting to reference a Python 3.9 library instead of a Python 3.12 library.  The script is currently configured to only install the latest working version ansible-navigator 24.2.0.
+
+There is a bug with the latest community ansible-builder version 3.1.0.  The python module is trying to compile execution environments with 2 conflicting versions of dnspython.  The script is currently configured to only install the latest working version ansible.builder 3.0.1.
