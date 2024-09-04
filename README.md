@@ -168,15 +168,14 @@ Fedora 40 just recently was released.  The following will upgrade a Fedora 39 WS
 
         # wsl --shutdown
 
-1. If you have a version of ansible-navigator older than 24.2.0 or ansible-builder older than 3.0.1, run the following as your Fedora WSL user:
+1. If you wish to update your user space python environment use the provided user_python_upgrade.bash script:
 
-        # ansible-navigator --version
-        # python3 -m pip install ansible-navigator==24.2.0 ansible-builder==3.0.1 --user
+        # ./user_python_upgrade_bash
 
 Your developer environment should now be upgraded and ready to go.
 
 ## Additional Notes
 
-There is a bug with the latest community ansible-navigator version 24.3.2.  The package is attempting to reference a Python 3.9 library instead of a Python 3.12 library.  The script is currently configured to only install the latest working version ansible-navigator 24.2.0.
+There is a bug with the latest community ansible-navigator version 24.3.2.  The package is attempting to reference a Python 3.9 library instead of a Python 3.12 library.  The scripts are currently configured to only install the latest working version ansible-navigator 24.2.0.
 
-There is a bug with the latest community ansible-builder version 3.1.0.  The python module is trying to compile execution environments with 2 conflicting versions of dnspython.  The script is currently configured to only install the latest working version ansible.builder 3.0.1.
+There is a bug with the latest community ansible-builder version 3.1.0.  The python module is trying to compile execution environments with 2 conflicting versions of dnspython.  The scripts are currently configured to only install the latest working version ansible.builder 3.0.1.
