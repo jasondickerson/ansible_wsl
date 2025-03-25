@@ -39,11 +39,33 @@ Open a Windows command prompt or PowerShell, and enter
 Once the installation is complete, reboot to activate WSL.  
 Go to the Microsoft Store Application and download Fedora WSL.
 
+As of March 24, 2025 Fedora WSL is missing from the Microsoft Store.  However, the git repository project is still available.  There are manual instructions to install the latest version as of March 24, 2025 here:  [Fedora WSL Manual Installation Instructions](https://github.com/VSWSL/Fedora-WSL?tab=readme-ov-file#installation).
+
+A github issue was opened for this:  [Fedora WSL no longer available from Microsoft Store](https://github.com/VSWSL/Fedora-WSL/issues/31).  
+
+NOTE:  If installing manually, the ".cer" file must be imported into the Windows "Trusted Root Certificate Store" of the "local machine" in order to trust the msix package.
+
+Alternatively, the myfedora.ps1 script may be used to install Fedora WSL from the git repository.  The script will install Fedora WSL and prompt the user to set a linux password.  
+
+NOTE:  If you use this method, you cannot start Fedora WSL using the command:
+
+    > fedora.exe
+
+You must instead start the WSL instance in your home directory using:
+
+    > wsl.exe --cd ~ -d MyFedora
+
+If Fedora WSL is your default WSL distribution (per the fedora.ps1 script defaults) you may run a shorter version of the command:
+
+    > wsl.exe --cd ~
+
+NOTE: The myfedora.ps1 script downloads the Fedora WSL rootfs.amd64.tar.gz file.  To ensure you are installing the latest version you may check the releases page here:  [Fedora WSL RootFS](https://github.com/VSWSL/Fedora-WSL-RootFS/releases).  If there is a newer version, simply replace the link in the myfedora.ps1 script.  
+
 ### Prepare WSL for use
 
 Run the Linux Distribution you installed, either the Fedora or Ubuntu application.
 
-Enter your user name for WSL into the prompt, and then enter your new password twice at the prompts.  
+If you did not use the myfedora.ps1 script to install, enter your user name for WSL into the prompt, and then enter your new password twice at the prompts.  
 
 Your WSL Linux Distribution is now configured and ready for use.  
 
