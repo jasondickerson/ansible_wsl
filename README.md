@@ -32,12 +32,17 @@ Once the installation is complete, reboot to activate WSL.
 
 #### Fedora WSL installation
 
-Open a Windows command prompt or PowerShell, and enter
+If WSL is not already installed, open a Windows command prompt or PowerShell, and enter
 
     > wsl --install --no-distribution
 
-Once the installation is complete, reboot to activate WSL.  
+Once the installation is complete, reboot to activate WSL then proceed.
+
+##### Option 1: Microsoft Store
+
 Go to the Microsoft Store Application and download Fedora WSL.
+
+##### Option 2: Original Fedora WSL git repository
 
 As of March 24, 2025 Fedora WSL is missing from the Microsoft Store.  However, the git repository project is still available.  There are manual instructions to install the latest version as of March 24, 2025 here:  [Fedora WSL Manual Installation Instructions](https://github.com/VSWSL/Fedora-WSL?tab=readme-ov-file#installation).
 
@@ -47,7 +52,7 @@ NOTE:  If installing manually, the ".cer" file must be imported into the Windows
 
 Alternatively, the myfedora.ps1 script may be used to install Fedora WSL from the git repository.  The script will install Fedora WSL and prompt the user to set a linux password.  
 
-NOTE:  If you use this method, you cannot start Fedora WSL using the command:
+NOTE: If this method is used, you cannot start Fedora WSL using the command:
 
     > fedora.exe
 
@@ -55,17 +60,20 @@ You must instead start the WSL instance in your home directory using:
 
     > wsl.exe --cd ~ -d MyFedora
 
-If Fedora WSL is your default WSL distribution (per the fedora.ps1 script defaults) you may run a shorter version of the command:
-
+If Fedora WSL is your default WSL distribution you may run a shorter version of the command:
     > wsl.exe --cd ~
 
 NOTE: The myfedora.ps1 script downloads the Fedora WSL rootfs.amd64.tar.gz file.  To ensure you are installing the latest version you may check the releases page here:  [Fedora WSL RootFS](https://github.com/VSWSL/Fedora-WSL-RootFS/releases).  If there is a newer version, simply replace the link in the myfedora.ps1 script.  
+
+##### Option 3: Create your own Fedora WSL Filesystem
+
+It is possible to create your own Fedora WSL distribution using this repository:  [fedora_wsl_fs](https://github.com/jasondickerson/fedora_wsl_fs).  The repository includes scripts to create the Fedora WSL distribution Filesystem and install it on Windows.  
 
 ### Prepare WSL for use
 
 Run the Linux Distribution you installed, either the Fedora or Ubuntu application.
 
-If you did not use the myfedora.ps1 script to install, enter your user name for WSL into the prompt, and then enter your new password twice at the prompts.  
+If you used Fedora WSL from the Microsoft Store, enter your user name for WSL into the prompt, and then enter your new password twice at the prompts.  
 
 Your WSL Linux Distribution is now configured and ready for use.  
 
