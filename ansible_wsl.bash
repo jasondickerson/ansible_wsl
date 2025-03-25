@@ -68,7 +68,7 @@ esac
 # sudo apt-get install curl wget gnupg2
 
 ## Install required os packages
-${PKG_MGR} install podman python3-pip tree
+${PKG_MGR} install podman python3-pip tree glibc-all-langpacks
 
 ## Install Community Ansible Navigator
 ## 202040516 version 24.3.2 has a bug referencing python 3.9 instead of 3.12
