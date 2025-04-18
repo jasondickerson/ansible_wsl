@@ -185,13 +185,22 @@ Fedora 40 just recently was released.  The following will upgrade a Fedora 39 WS
 
         # wsl --shutdown
 
-1. From Fedora WSL, run the following commands using sudo access as follows:
+1. From Fedora WSL, run the following commands using sudo access as follows to upgrade up to Fedora 41:
 
         # sudo -i
         # export DNF_SYSTEM_UPGRADE_NO_REBOOT=1
-        # dnf -y system-upgrade download --releasever=40
+        # dnf -y system-upgrade download --releasever=41
         # dnf -y system-upgrade reboot
         # dnf -y system-upgrade upgrade
+        # exit
+
+1. From Fedora WSL, run the following commands using sudo access as follows to upgrade up to Fedora 42 or higher:
+
+        # sudo -i
+        # export DNF_SYSTEM_UPGRADE_NO_REBOOT=1
+        # dnf -y system-upgrade download --releasever=42
+        # dnf -y offline reboot
+        # dnf -y offline _execute
         # exit
 
 1. From the Windows Command prompt, run:
