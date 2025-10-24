@@ -73,7 +73,7 @@ ${PKG_MGR} install podman python3-pip tree glibc-all-langpacks
 ## Install Community Ansible Navigator
 ## 202040516 version 24.3.2 has a bug referencing python 3.9 instead of 3.12
 ## ImportError: cannot import name 'TypeAlias' from 'typing' (/usr/lib64/python3.9/typing.py)
-python3 -m pip install ansible-navigator==24.2.0 ansible-builder==3.0.1 --user
+python3 -m pip install --user ansible-builder==3.1.0 ansible-compat==25.8.1 ansible-core==2.16.14 ansible-lint==25.8.2 ansible-navigator==25.8.0 ansible-runner==2.4.1
 
 ## Add Ansible commands to the PATH
 ## Set Profile Variable
