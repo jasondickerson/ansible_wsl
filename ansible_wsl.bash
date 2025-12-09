@@ -21,6 +21,8 @@ case ${ID} in
 
   fedora)
     PKG_MGR="sudo dnf -y"
+    USER_PROFILE=".bash_profile"
+    OS_PKGS="python3-pip tree glibc-all-langpacks gettext-envsubst git-core"
     ## interactive: possible prompt for sudo password
     sudo mount --make-rshared /
     ${PKG_MGR} install gettext-envsubst
@@ -28,6 +30,8 @@ case ${ID} in
 
   ubuntu)
     PKG_MGR="sudo apt-get -y"
+    USER_PROFILE=".profile"
+    OS_PKGS="python3-pip tree glibc-all-langpacks"
     ;;
 
   *)
@@ -37,24 +41,11 @@ case ${ID} in
 
 esac
 
-## Configure sudo
-if [ ! -f /etc/sudoers.d/${USER} ] ; then
-  envsubst > ~/${USER} << '__EOF__'
-${USER}   ALL=(ALL) NOPASSWD: ALL
-__EOF__
-
-  sudo chown root:root ~/${USER}
-  sudo chmod 0440 ~/${USER}
-  sudo mv ~/${USER} /etc/sudoers.d
-fi
-
 ## Upgrade OS
 case ${ID} in
 
   fedora)
     ${PKG_MGR} update
-    ## fix shadow-utils capabilities for podman
-    ${PKG_MGR} reinstall shadow-utils
     ;;
 
   ubuntu)
@@ -68,27 +59,13 @@ esac
 # sudo apt-get install curl wget gnupg2
 
 ## Install required os packages
-${PKG_MGR} install podman python3-pip tree glibc-all-langpacks
+${PKG_MGR} install ${OS_PKGS}
 
 ## Install Community Ansible Navigator
-## 202040516 version 24.3.2 has a bug referencing python 3.9 instead of 3.12
-## ImportError: cannot import name 'TypeAlias' from 'typing' (/usr/lib64/python3.9/typing.py)
-python3 -m pip install --user ansible-builder==3.1.0 ansible-compat==25.8.1 ansible-core==2.16.14 ansible-lint==25.8.2 ansible-navigator==25.8.0 ansible-runner==2.4.1
+## Match Versions to AAP 2.6
+python3 -m pip install --user ansible-builder==3.1.0 ansible-compat==25.8.1 ansible-core==2.16.14 ansible-lint==25.8.2 ansible-navigator==25.8.0 ansible-runner==2.4.2
 
 ## Add Ansible commands to the PATH
-## Set Profile Variable
-case ${ID} in
-
-  fedora)
-    USER_PROFILE=".bash_profile"
-    ;;
-
-  ubuntu)
-    USER_PROFILE=".profile"
-    ;;
-
-esac
-
 grep 'export PATH=$HOME/.local/bin:$PATH' ~/${USER_PROFILE} &> /dev/null
 if [ ${?} -ne 0 ] ; then
   echo 'export PATH=$HOME/.local/bin:$PATH' >> ~/${USER_PROFILE}
@@ -111,16 +88,8 @@ case ${ID} in
       echo 'sudo mount --make-rshared /' >> ~/.bashrc
     fi
 
-    if [ ! -f /etc/wsl.conf ] ; then 
-      cat > ~/wsl.conf << '__EOF__'
-
-[boot]
-systemd=true
-__EOF__
-
-      sudo mv ~/wsl.conf /etc/wsl.conf
-      sudo chown root:root /etc/wsl.conf
-      sudo chmod 0644 /etc/wsl.conf
+    if [ "$(grep -v ^$ .bashrc | tail -n1)" != "cd" ] ; then
+      echo 'cd' >> ${HOME}/.bashrc
     fi
     ;;
 
@@ -191,20 +160,3 @@ vault_password_file = .secret
 __EOF__
 
 fi
-
-## Instruct Fedora WSL User to restart WSL to boot via systemd
-## This is required for podman usage
-case ${ID} in
-
-  fedora)
-    echo "If this is your first script run, please perform the following steps to enable systemd:"
-    echo ""
-    echo "  - exit all WSL Shells"
-    echo "  - from a cmd.exe or powershell.exe prompt, run wsl --shutdown"
-    echo "  - launch the Fedora application"
-    echo ""
-    echo "Fedora WSL will then be booted via systemd"
-    echo ""
-    ;;
-
-esac
